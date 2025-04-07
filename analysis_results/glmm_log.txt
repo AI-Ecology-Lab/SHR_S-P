@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "C:\Users\Attca\marsnow\SHR_S-P\analysis_scripts\2_glmm_analysis_fixed.py", line 12, in <module>
+    import seaborn as sns
+ModuleNotFoundError: No module named 'seaborn'

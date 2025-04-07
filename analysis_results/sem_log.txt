@@ -1,0 +1,1 @@
+python3: can't open file 'C:\\Users\\Attca\\marsnow\\SHR_S-P\\analysis_scripts\\7_sem_analysis.py': [Errno 2] No such file or directory
