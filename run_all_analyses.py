@@ -89,7 +89,7 @@ def check_results(analysis_name, expected_file):
 
 # Load the dataset to get basic information
 print("Loading dataset...")
-data_path = r"C:\Users\Attca\marsnow\SHR_S-P\SHR_2022-2023_fauna_ctd_calcO2_pressure.csv"
+data_path = "C:\Users\Attca\marsnow\SHR_S-P\SHR_2022-2023_fauna_ctd_calcO2_pressure.csv"
 data = pd.read_csv(data_path)
 
 print(f"\nDataset Information:")
