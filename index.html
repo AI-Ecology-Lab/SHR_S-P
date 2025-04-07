@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marine Species Analysis Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+        h3 {
+            color: #2980b9;
+            margin-top: 25px;
+        }
+        .analysis-section {
+            margin-bottom: 50px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .visualization {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .visualization img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .visualization-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .viz-item {
+            text-align: center;
+        }
+        .viz-item img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .viz-caption {
+            margin-top: 10px;
+            font-style: italic;
+            color: #666;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        .summary {
+            background-color: #e8f4f8;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            margin: 20px 0;
+        }
+        .nav {
+            position: sticky;
+            top: 0;
+            background-color: #2c3e50;
+            padding: 10px 0;
+            margin-bottom: 30px;
+            z-index: 100;
+        }
+        .nav ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .nav li {
+            margin: 0 15px;
+        }
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+        }
+        .nav a:hover {
+            background-color: #3498db;
+        }
+        .dataset-info {
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Marine Species Analysis Results</h1>
+        
+        <div class="nav">
+            <ul>
+                <li><a href="#dataset">Dataset</a></li>
+                <li><a href="#gam">GAM Analysis</a></li>
+                <li><a href="#glmm">GLMM Analysis</a></li>
+                <li><a href="#cca">CCA Analysis</a></li>
+                <li><a href="#jsdm">JSDM Analysis</a></li>
+                <li><a href="#time-series">Time Series Analysis</a></li>
+                <li><a href="#nmds">NMDS Analysis</a></li>
+                <li><a href="#sem">SEM Analysis</a></li>
+            </ul>
+        </div>
+        
+        <div id="dataset" class="analysis-section dataset-info">
+            <h2>Dataset Information</h2>
+            <p>This analysis examines marine species counts and environmental variables from the SHR_2022-2023_fauna_ctd_calcO2_pressure.csv dataset. The dataset contains 50,841 observations with the following variables:</p>
+            
+            <h3>Species Variables:</h3>
+            <ul>
+                <li>Sablefish</li>
+                <li>Sea Stars</li>
+                <li>Crabs</li>
+                <li>Hagfish</li>
+                <li>Euphausia</li>
+                <li>Liponema</li>
+                <li>Flatfish</li>
+                <li>Rockfish</li>
+                <li>Eelpout</li>
+            </ul>
+            
+            <h3>Environmental Variables:</h3>
+            <ul>
+                <li>Temperature</li>
+                <li>Conductivity</li>
+                <li>Pressure</li>
+                <li>Salinity</li>
+                <li>Oxygen (ml/l)</li>
+                <li>PressurePSI</li>
+            </ul>
+            
+            <h3>Temporal Variables:</h3>
+            <ul>
+                <li>Timestamp</li>
+                <li>Date</li>
+                <li>Time</li>
+            </ul>
+            
+            <h3>Substrate Variables:</h3>
+            <ul>
+                <li>Biogenic Substrate</li>
+                <li>Non-Biogenic Substrate</li>
+            </ul>
+        </div>
+        
+        <div id="gam" class="analysis-section">
+            <h2>1. Generalized Additive Models (GAMs)</h2>
+            
+            <div class="summary">
+                <p><strong>Purpose:</strong> Capture nonlinear relationships between environmental predictors and species counts over time.</p>
+                <p><strong>Key Findings:</strong> GAMs revealed complex nonlinear relationships between environmental variables and species abundance. Rockfish showed the strongest relationship with environmental predictors (R² = 0.0807), suggesting their distribution is more predictable based on environmental conditions.</p>
+            </div>
+            
+            <h3>Species-Specific GAM Results</h3>
+            
+            <div class="visualization-grid">
+                <div class="viz-item">
+                    <img src="images/gam_Rockfish_partial_effects.png" alt="GAM Partial Effects for Rockfish">
+                    <div class="viz-caption">Partial effects of environmental variables on Rockfish abundance</div>
+                </div>
+                <div class="viz-item">
+                    <img src="images/gam_Flatfish_partial_effects.png" alt="GAM Partial Effects for Flatfish">
+                    <div class="viz-caption">Partial effects of environmental variables on Flatfish abundance</div>
+                </div>
+                <div class="viz-item">
+                    <img src="images/gam_Sea Stars_partial_effects.png" alt="GAM Partial Effects for Sea Stars">
+                    <div class="viz-caption">Partial effects of environmental variables on Sea Stars abundance</div>
+                </div>
+                <div class="viz-item">
+                    <img src="images/gam_Sablefish_partial_effects.png" alt="GAM Partial Effects for Sablefish">
+                    <div class="viz-caption">Partial effects of environmental variables on Sablefish abundance</div>
+                </div>
+                <div class="viz-item">
+                    <img src="images/gam_Hagfish_partial_effects.png" alt="GAM Partial Effects for Hagfish">
+                    <div class="viz-caption">Partial effects of environmental variables on Hagfish abundance</div>
+                </div>
+                <div class="viz-item">
+                    <img src="images/gam_Crabs_partial_effects.png" alt="GAM Partial Effects for Crabs">
+                    <div class="viz-caption">Partial effects of environmental variables on Crabs abundance</div>
+                </div>
+                <div class="viz-item">
+                    <img src="images/gam_Euphausia_partial_effects.png" alt="GAM Partial Effects for Euphausia">
+                    <div class="viz-caption">Partial effects of environmental variables on Euphausia abundance</div>
+                </div>
+                <div class="viz-item">
+                    <img src="images/gam_Liponema_partial_effects.png" alt="GAM Partial Effects for Liponema">
+                    <div class="viz-caption">Partial effects of environmental variables on Liponema abundance</div>
+                </div>
+                <div class="viz-item">
+                    <img src="images/gam_Eelpout_partial_effects.png" alt="GAM Partial Effects for Eelpout">
+                    <div class="viz-caption">Partial effects of environmental variables on Eelpout abundance</div>
+                </div>
+            </div>
+            
+            <h3>Model Performance Comparison</h3>
+            <div class="visualization">
+                <img src="images/gam_r2_comparison.png" alt="GAM R² Comparison">
+                <div class="viz-caption">Comparison of GAM model performance (R² values) across species</div>
+            </div>
+        </div>
+        
+        <div id="glmm" class="analysis-section">
+            <h2>2. Generalized Linear Mixed Models (GLMMs)</h2>
+            
+            <div class="summary">
+                <p><strong>Purpose:</strong> Handle count data while accounting for random effects and autocorrelation.</p>
+                <p><strong>Key Findings:</strong> GLMMs were used to model species presence/absence with time periods as random effects. The models identified significant environmental predictors for each species while accounting for temporal autocorrelation.</p>
+            </div>
+            
+            <h3>GLMM Coefficient Plots</h3>
+            <div class="visualization-grid">
+                <div class="viz-item">
+                    <img src="images/glmm_aic_comparison.png" alt="GLMM AIC Comparison">
+                    <div class="viz-caption">Comparison of GLMM model performance (AIC values) across species</div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="cca" class="analysis-section">
+            <h2>3. Canonical Correspondence Analysis (CCA)</h2>
+            
+            <div class="summary">
+                <p><strong>Purpose:</strong> Explore how community composition relates directly to environmental gradients.</p>
+                <p><strong>Key Findings:</strong> CCA revealed the relationships between species distributions and environmental gradients. The biplot shows how different species are positioned along environmental axes, indicating their habitat preferences.</p>
+            </div>
+            
+            <h3>CCA Biplot</h3>
+            <div class="visualization">
+                <img src="images/cca_biplot.png" alt="CCA Biplot">
+                <div class="viz-caption">CCA biplot showing species distributions along environmental gradients</div>
+            </div>
+            
+            <h3>Species-Environment Correlation Heatmap</h3>
+            <div class="visualization">
+                <img src="images/cca_correlation_heatmap.png" alt="CCA Correlation Heatmap">
+                <div class="viz-caption">Heatmap of correlations between species and environmental variables</div>
+            </div>
+        </div>
+        
+        <div id="jsdm" class="analysis-section">
+            <h2>4. Joint Species Distribution Models (JSDMs)</h2>
+            
+            <div class="summary">
+                <p><strong>Purpose:</strong> Model the occurrence of multiple species simultaneously, accounting for both shared environmental responses and species interactions.</p>
+                <p><strong>Key Findings:</strong> JSDMs identified patterns of species co-occurrence and their shared responses to environmental variables. Species were clustered based on similar environmental responses.</p>
+            </div>
+            
+            <h3>Species Co-occurrence Patterns</h3>
+            <div class="visualization">
+                <img src="images/jsdm_cooccurrence_heatmap.png" alt="JSDM Co-occurrence Heatmap">
+                <div class="viz-caption">Heatmap of species co-occurrence patterns (phi coefficient)</div>
+            </div>
+            
+            <h3>Environmental Correlations</h3>
+            <div class="visualization">
+                <img src="images/jsdm_environment_correlations.png" alt="JSDM Environment Correlations">
+                <div class="viz-caption">Heatmap of species-environment correlations</div>
+            </div>
+            
+            <h3>Species Clusters</h3>
+            <div class="visualization">
+                <img src="images/jsdm_species_clusters.png" alt="JSDM Species Clusters">
+                <div class="viz-caption">Clustering of species based on environmental responses</div>
+            </div>
+        </div>
+        
+        <div id="time-series" class="analysis-section">
+            <h2>5. Time Series and State-Space Models</h2>
+            
+            <div class="summary">
+                <p><strong>Purpose:</strong> Investigate temporal dynamics and potential feedbacks in the system.</p>
+                <p><strong>Key Findings:</strong> Time series analysis revealed seasonal patterns in both environmental variables and species abundance. SARIMAX models identified significant relationships between species abundance and environmental covariates over time.</p>
+            </div>
+            
+            <h3>Environmental Variable Decomposition</h3>
+            <div class="visualization-grid">
+                <div class="viz-item">
+                    <img src="images/time_series_Temperature_decomposition.png" alt="Temperature Time Series Decomposition">
+                    <div class="viz-caption">Seasonal decomposition of Temperature time series</div>
+                </div>
+                <div class="viz-item">
+                    <img src="images/time_series_Salinity_decomposition.png" alt="Salinity Time Series Decomposition">
+                    <div class="viz-caption">Seasonal decomposition of Salinity time series</div>
+                </div>
+                <div class="viz-item">
+                    <img src="images/time_series_Pressure_decomposition.png" alt="Pressure Time Series Decomposition">
+                    <div class="viz-caption">Seasonal decomposition of Pressure time series</div>
+                </div>
+            </div>
+            
+            <h3>Species Autocorrelation</h3>
+            <div class="visualization-grid">
+                <div class="viz-item">
+                    <img src="images/time_series_Rockfish_autocorrelation.png" alt="Rockfish Autocorrelation">
+                    <div class="viz-caption">Autocorrelation function for Rockfish abundance</div>
+                </div>
+                <div class="viz-item">
+                    <img src="images/time_series_Sea Stars_autocorrelation.png" alt="Sea Stars Autocorrelation">
+                    <div class="viz-caption">Autocorrelation function for Sea Stars abundance</div>
+                </div>
+                <div class="viz-item">
+                    <img src="images/time_series_Sablefish_autocorrelation.png" alt="Sablefish Autocorrelation">
+                    <div class="viz-caption">Autocorrelation function for Sablefish abundance</div>
+                </div>
+            </div>
+            
+            <h3>SARIMAX Models</h3>
+            <div class="visualization-grid">
+                <div class="viz-item">
+                    <img src="images/time_series_Rockfish_sarimax.png" alt="Rockfish SARIMAX Model">
+                    <div class="viz-caption">SARIMAX model for Rockfish with environm
+(Content truncated due to size limit. Use line ranges to read in chunks)
