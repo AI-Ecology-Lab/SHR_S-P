@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "C:\Users\Attca\marsnow\SHR_S-P\analysis_scripts\3_cca_analysis.py", line 11, in <module>
+    from sklearn.preprocessing import StandardScaler
+ModuleNotFoundError: No module named 'sklearn'

@@ -1,1 +1,4 @@
-python3: can't open file 'C:\\Users\\Attca\\marsnow\\SHR_S-P\\analysis_scripts\\7_sem_analysis.py': [Errno 2] No such file or directory
+  File "C:\Users\Attca\marsnow\SHR_S-P\analysis_scripts\7_sem_analysis.py", line 416
+    plt.title('Proportion of Variance Explained by E
+              ^
+SyntaxError: unterminated string literal (detected at line 416)
