@@ -22,7 +22,7 @@ os.makedirs('../visualizations', exist_ok=True)
 
 # Load the dataset
 print("Loading dataset...")
-data = pd.read_csv('../upload/SHR_2022-2023_fauna_ctd_calcO2_pressure.csv')
+data = pd.read_csv('../SHR_2022-2023_fauna_ctd_calcO2_pressure.csv')
 
 # Convert timestamp to datetime
 data['Timestamp'] = pd.to_datetime(data['Timestamp'])
@@ -413,5 +413,8 @@ for bar in bars:
 
 plt.xlabel('Species')
 plt.ylabel('R² / Pseudo-R²')
-plt.title('Proportion of Variance Explained by E
-(Content truncated due to size limit. Use line ranges to read in chunks)
+plt.title('Proportion of Variance Explained by Environmental Variables')
+plt.xticks(rotation=45, ha='right')
+plt.tight_layout()
+plt.savefig('../visualizations/sem_rsquared_comparison.png')
+plt.close()

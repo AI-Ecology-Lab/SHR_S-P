@@ -1,4 +1,4 @@
-  File "C:\Users\Attca\marsnow\SHR_S-P\analysis_scripts\7_sem_analysis.py", line 416
-    plt.title('Proportion of Variance Explained by E
-              ^
-SyntaxError: unterminated string literal (detected at line 416)
+Traceback (most recent call last):
+  File "C:\Users\Attca\marsnow\SHR_S-P\analysis_scripts\7_sem_analysis.py", line 11, in <module>
+    import seaborn as sns
+ModuleNotFoundError: No module named 'seaborn'

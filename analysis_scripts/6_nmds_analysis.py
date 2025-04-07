@@ -21,7 +21,7 @@ os.makedirs('../visualizations', exist_ok=True)
 
 # Load the dataset
 print("Loading dataset...")
-data = pd.read_csv('../upload/SHR_2022-2023_fauna_ctd_calcO2_pressure.csv')
+data = pd.read_csv('../SHR_2022-2023_fauna_ctd_calcO2_pressure.csv')
 
 # Convert timestamp to datetime
 data['Timestamp'] = pd.to_datetime(data['Timestamp'])
